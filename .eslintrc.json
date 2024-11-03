@@ -14,7 +14,14 @@
         "no-implicit-coercion": "error",
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-duplicate-enum-values": "error",
-        "prettier/prettier": "error" // Asegúrate de incluir esta regla
+        "prettier/prettier": [
+            "error",
+            {
+              "endOfLine": "auto"
+            }
+        ]
+        // Asegúrate de incluir esta regla
     },
     "plugins": ["@typescript-eslint", "prettier"]
+    
 }
