@@ -1,8 +1,9 @@
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
+import { Link } from 'react-router-dom';
 import { css } from '../../../styled-system/css';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo2.png';
 
 export const Login = () => {
   return (
@@ -22,7 +23,8 @@ export const Login = () => {
         className={css({
           backgroundColor: 'white',
           width: '5/12',
-          height: '4/6',
+          // height: '4/6',
+          paddingY: '30px',
           rounded: 'md',
           display: 'flex',
           flexDirection: 'column',
@@ -38,13 +40,14 @@ export const Login = () => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
+            marginBottom: '25px',
           })}
         >
           <img
             src={logo}
             alt="friend-nest"
             className={css({
-              width: '170px',
+              width: '175px',
               height: '140px',
               objectFit: 'cover',
             })}
@@ -94,12 +97,42 @@ export const Login = () => {
             tabIndex={1}
             placeholder="Contraseña"
           />
+
+          <div
+            className={css({
+              width: '70%',
+              display: 'flex',
+              justifyContent: 'end',
+            })}
+          >
+            <Link
+              to=""
+              className={css({
+                color: 'blue.400',
+              })}
+            >
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
+
           <Button
-            label="Submit"
+            label="Iniciar sesión"
             className={css({
               width: '70%',
             })}
           />
+          <p>
+            No tienes una cuenta?{' '}
+            <Link
+              to="/register"
+              className={css({
+                color: 'blue.400',
+                marginY: '20px',
+              })}
+            >
+              Registrate
+            </Link>
+          </p>
         </div>
       </div>
     </main>
