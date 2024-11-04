@@ -6,20 +6,22 @@ import { css } from '../../../styled-system/css';
 import logo from '../../assets/logo2.png';
 import {
   cardHeader,
-  cardLogin,
   cardMain,
-  descriptionStyle,
   forgotPasswordStyle,
-  h1Style,
   logoFriendNest,
-  mainStyle,
   registerStyle,
 } from '../styles/authStyle/login.style';
+import {
+  card,
+  descriptionStyle,
+  h1Style,
+  mainStyle,
+} from '../styles/authStyle/globals.style';
 
 export const Login = () => {
   return (
     <main className={mainStyle}>
-      <div className={cardLogin}>
+      <form className={card}>
         <div className={cardHeader}>
           <img src={logo} alt="friend-nest" className={logoFriendNest} />
           <h1 className={h1Style}>Bienvenido a Friend-Nest</h1>
@@ -32,7 +34,7 @@ export const Login = () => {
             className={css({
               width: '70%',
             })}
-            keyfilter="int"
+            type="email"
             placeholder="Correo"
           />
           <Password
@@ -69,7 +71,7 @@ export const Login = () => {
             </Link>
           </p>
         </div>
-      </div>
+      </form>
     </main>
   );
 };
