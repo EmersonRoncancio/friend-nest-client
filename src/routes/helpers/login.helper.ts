@@ -1,7 +1,9 @@
+type names = 'email' | 'password' | 'username' | 'fullName';
+
 export interface formRegisterType {
   label: string;
   type: string;
-  name: string;
+  name: names;
   placeholder: string;
 }
 
@@ -9,7 +11,7 @@ export const formRegister: formRegisterType[] = [
   {
     label: 'Correo',
     type: 'text',
-    name: 'correo',
+    name: 'email',
     placeholder: 'your@email.com',
   },
   {
@@ -21,13 +23,23 @@ export const formRegister: formRegisterType[] = [
   {
     label: 'Usuario',
     type: 'text',
-    name: 'usuario',
+    name: 'username',
     placeholder: 'your_user',
   },
   {
     label: 'Nombre completo',
     type: 'text',
-    name: 'nombreCompleto',
+    name: 'fullName',
     placeholder: 'yourName',
   },
+];
+
+type TypeUser = ['email', 'password', 'username', 'fullName', 'profile'];
+
+export const addUserType: TypeUser = [
+  'email',
+  'password',
+  'username',
+  'fullName',
+  'profile',
 ];

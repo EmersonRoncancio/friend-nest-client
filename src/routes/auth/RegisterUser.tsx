@@ -9,16 +9,79 @@ import {
   cardContent,
   cardForm,
   cardHeaderRegister,
+  previewImageStyle,
 } from '../styles/authStyle/register.style';
 import { css } from '../../../styled-system/css';
-import { FileUpload } from 'primereact/fileupload';
-import { formRegister, formRegisterType } from '../helpers/login.helper';
-import { Button } from 'primereact/button';
+import {
+  addUserType,
+  formRegister,
+  formRegisterType,
+} from '../helpers/login.helper';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { userType } from '../../types/user';
+import { User, UserFormData } from '../../zod/routesAuth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRef, useState } from 'react';
+import { FileContent } from '../../components/styleComponents/contentFile';
+import { envs } from '../../envs';
+import ErrorMessage from '../../components/componentsTsx/ErrorMessage';
+import axios from 'axios';
+import { Button } from '../../components/styleComponents/button';
 
 export const RegisterUser = () => {
+  const file = useRef<File | string>();
+  const [previewImage, setPreviewImage] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserFormData>({ resolver: zodResolver(User) });
+
+  const onSubmit: SubmitHandler<userType> = (data) => {
+    setLoading(true);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { profile, ...formValue } = data;
+
+    const formData = new FormData();
+
+    Object.entries(formValue).forEach(([key, value]) => {
+      formData.append(key, value.toString());
+    });
+
+    formData.append('profile', file.current!);
+
+    axios
+      .post(`${envs.API}/auth/`, formData)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 9000);
+      });
+
+    setPreviewImage('');
+    addUserType.map((user) => {
+      setValue(user, '');
+    });
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const arrFiles = Array.from(event.target.files);
+      file.current = arrFiles[0];
+
+      const urlImg = URL.createObjectURL(arrFiles[0]);
+      setPreviewImage(urlImg);
+    }
+  };
+
   return (
     <main className={mainStyle}>
-      <form className={card}>
+      <form onSubmit={handleSubmit(onSubmit)} className={card}>
         <div className={cardHeaderRegister}>
           <h1 className={h1Style}>Unete a Friend-Nest</h1>
           <p className={descriptionStyle}>
@@ -26,36 +89,48 @@ export const RegisterUser = () => {
           </p>
         </div>
         <div className={cardContent}>
-          {formRegister.map((register: formRegisterType) => {
+          {formRegister.map((registerForm: formRegisterType, index) => {
             return (
-              <div key={register.name} className={cardForm}>
-                <label htmlFor="">{register.label}</label>
+              <div key={index} className={cardForm}>
+                <label htmlFor={registerForm.name}>{registerForm.label}</label>
                 <InputText
-                  type={register.type}
+                  type={registerForm.type}
                   className={css({
                     width: '100%',
                   })}
-                  placeholder={register.placeholder}
+                  placeholder={registerForm.placeholder}
+                  {...register(registerForm.name)}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  key={register.name}
+                  fieldName={registerForm.name}
                 />
               </div>
             );
           })}
-          <FileUpload
-            className={css({
-              width: '70%',
-            })}
-            mode="basic"
-            name="demo[]"
-            url="/api/upload"
-            accept="image/*"
-            maxFileSize={1000000}
-          />
-          <Button
-            label="Registrarse"
-            className={css({
-              width: '70%',
-            })}
-          />
+          <FileContent>
+            Agregar Imagenes
+            <input
+              hidden
+              type="file"
+              multiple
+              accept="image/*"
+              {...register('profile')}
+              onChange={handleChange}
+            />
+          </FileContent>
+
+          {previewImage && (
+            <img className={previewImageStyle} src={previewImage} alt="" />
+          )}
+          <Button disabled={loading}>
+            {loading ? (
+              <i className="pi pi-spin pi-cog" style={{ fontSize: '22px' }}></i>
+            ) : (
+              'Registrar'
+            )}
+          </Button>
         </div>
       </form>
     </main>

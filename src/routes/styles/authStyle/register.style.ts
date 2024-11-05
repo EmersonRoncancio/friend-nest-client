@@ -24,3 +24,10 @@ export const cardForm = css({
   flexDirection: 'column',
   gap: '5px',
 });
+
+export const previewImageStyle = css({
+  width: '100px',
+  height: '100px',
+  objectFit: 'cover',
+  rounded: '3xl',
+});
