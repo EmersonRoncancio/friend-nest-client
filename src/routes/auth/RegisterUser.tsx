@@ -28,11 +28,14 @@ import ErrorMessage from '../../components/componentsTsx/ErrorMessage';
 import axios from 'axios';
 import { Button } from '../../components/styleComponents/button';
 import { Link } from 'react-router-dom';
+import { Toast } from 'primereact/toast';
 
 export const RegisterUser = () => {
-  const file = useRef<File | string>();
+  const file = useRef<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorFile, setErrorFile] = useState<boolean>(false);
+  const toast = useRef<Toast>(null);
 
   const {
     register,
@@ -42,6 +45,12 @@ export const RegisterUser = () => {
   } = useForm<UserFormData>({ resolver: zodResolver(User) });
 
   const onSubmit: SubmitHandler<userType> = (data) => {
+    if (file.current === null) {
+      setErrorFile(true);
+      return;
+    } else {
+      setErrorFile(false);
+    }
     setLoading(true);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { profile, ...formValue } = data;
@@ -56,15 +65,30 @@ export const RegisterUser = () => {
 
     axios
       .post(`${envs.API}/auth/`, formData)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error))
+      .then((res) => {
+        toast.current?.show({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Registro con exito',
+          life: 3000,
+        });
+        console.log(res);
+      })
+      .catch((error) => {
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al registrarse',
+          life: 3000,
+        });
+        console.log(error);
+      })
       .finally(() => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 9000);
+        setLoading(false);
       });
 
     setPreviewImage('');
+    file.current = null;
     addUserType.map((user) => {
       setValue(user, '');
     });
@@ -82,6 +106,7 @@ export const RegisterUser = () => {
 
   return (
     <main className={mainStyleRegister}>
+      <Toast ref={toast} />
       <form onSubmit={handleSubmit(onSubmit)} className={card}>
         <div className={cardHeaderRegister}>
           <h2 className={h2Style}>Unete a Friend-Nest</h2>
@@ -122,8 +147,14 @@ export const RegisterUser = () => {
             />
           </FileContent>
 
+          {errorFile ? (
+            <span style={{ color: 'red' }}>La imagen es requerida</span>
+          ) : null}
+
           {previewImage && (
-            <img className={previewImageStyle} src={previewImage} alt="" />
+            <>
+              <img className={previewImageStyle} src={previewImage} alt="" />
+            </>
           )}
           <Button disabled={loading}>
             {loading ? (

@@ -50,6 +50,6 @@ export const forgotPasswordStyle = css({
 });
 
 export const registerStyle = css({
-  color: 'blue.400',
+  color: 'blue.500',
   marginY: '20px',
 });
