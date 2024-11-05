@@ -6,12 +6,15 @@ export const FileContent = styled('label', {
     rounded: '5px',
     paddingX: '7px',
     paddingY: '13px',
-    width: '70%',
+    width: '80%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: 'white',
     fontWeight: 'medium',
     fontSize: 'md',
+    md: {
+      width: '70%',
+    },
   },
 });

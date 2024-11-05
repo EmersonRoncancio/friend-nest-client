@@ -2,13 +2,13 @@ import { InputText } from 'primereact/inputtext';
 import {
   card,
   descriptionStyle,
-  h1Style,
-  mainStyle,
+  h2Style,
 } from '../styles/authStyle/globals.style';
 import {
   cardContent,
   cardForm,
   cardHeaderRegister,
+  mainStyleRegister,
   previewImageStyle,
 } from '../styles/authStyle/register.style';
 import { css } from '../../../styled-system/css';
@@ -27,6 +27,7 @@ import { envs } from '../../envs';
 import ErrorMessage from '../../components/componentsTsx/ErrorMessage';
 import axios from 'axios';
 import { Button } from '../../components/styleComponents/button';
+import { Link } from 'react-router-dom';
 
 export const RegisterUser = () => {
   const file = useRef<File | string>();
@@ -80,10 +81,10 @@ export const RegisterUser = () => {
   };
 
   return (
-    <main className={mainStyle}>
+    <main className={mainStyleRegister}>
       <form onSubmit={handleSubmit(onSubmit)} className={card}>
         <div className={cardHeaderRegister}>
-          <h1 className={h1Style}>Unete a Friend-Nest</h1>
+          <h2 className={h2Style}>Unete a Friend-Nest</h2>
           <p className={descriptionStyle}>
             ¡Crea tu cuenta y comienza a conectarte!
           </p>
@@ -132,6 +133,12 @@ export const RegisterUser = () => {
             )}
           </Button>
         </div>
+        <span>
+          ¿Ya tienes una cuenta?{' '}
+          <Link to="/" className={css({ color: 'blue.500' })}>
+            Acceso
+          </Link>
+        </span>
       </form>
     </main>
   );

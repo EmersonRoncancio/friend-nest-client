@@ -2,7 +2,7 @@ import { css } from '../../../../styled-system/css';
 
 export const card = css({
   backgroundColor: 'white',
-  width: '5/12',
+  width: '90%',
   paddingY: '30px',
   rounded: 'md',
   display: 'flex',
@@ -10,23 +10,30 @@ export const card = css({
   justifyContent: 'center',
   alignItems: 'center',
   boxShadow: 'md',
-});
-
-export const mainStyle = css({
-  bgGradient: 'to-r',
-  gradientFrom: 'blue.400',
-  gradientTo: 'blue.100',
-  display: 'flex',
-  width: 'full',
-  height: '120vh',
-  justifyContent: 'center',
-  alignItems: 'center',
+  md: {
+    width: '80%',
+  },
+  xl: {
+    width: '5/12',
+  },
 });
 
 export const h1Style = css({
-  fontSize: '4xl',
+  fontSize: '2xl',
   color: 'blue.400',
   fontWeight: 'extrabold',
+  md: {
+    fontSize: '4xl',
+  },
+});
+
+export const h2Style = css({
+  fontSize: '3xl',
+  color: 'blue.400',
+  fontWeight: 'extrabold',
+  md: {
+    fontSize: '4xl',
+  },
 });
 
 export const descriptionStyle = css({

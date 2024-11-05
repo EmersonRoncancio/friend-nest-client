@@ -1,5 +1,16 @@
 import { css } from '../../../../styled-system/css';
 
+export const mainStyleRegister = css({
+  bgGradient: 'to-r',
+  gradientFrom: 'blue.400',
+  gradientTo: 'blue.100',
+  display: 'flex',
+  width: 'full',
+  height: '150vh',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
 export const cardHeaderRegister = css({
   display: 'flex',
   flexDirection: 'column',
@@ -19,10 +30,13 @@ export const cardContent = css({
 });
 
 export const cardForm = css({
-  width: '70%',
+  width: '80%',
   display: 'flex',
   flexDirection: 'column',
   gap: '5px',
+  md: {
+    width: '70%',
+  },
 });
 
 export const previewImageStyle = css({

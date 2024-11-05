@@ -1,6 +1,5 @@
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
-import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import { css } from '../../../styled-system/css';
 import logo from '../../assets/logo2.png';
@@ -9,18 +8,19 @@ import {
   cardMain,
   forgotPasswordStyle,
   logoFriendNest,
+  mainStyleLogin,
   registerStyle,
 } from '../styles/authStyle/login.style';
 import {
   card,
   descriptionStyle,
   h1Style,
-  mainStyle,
 } from '../styles/authStyle/globals.style';
+import { Button } from '../../components/styleComponents/button';
 
 export const Login = () => {
   return (
-    <main className={mainStyle}>
+    <main className={mainStyleLogin}>
       <form className={card}>
         <div className={cardHeader}>
           <img src={logo} alt="friend-nest" className={logoFriendNest} />
@@ -32,14 +32,20 @@ export const Login = () => {
         <div className={cardMain}>
           <InputText
             className={css({
-              width: '70%',
+              width: '80%',
+              md: {
+                width: '70%',
+              },
             })}
             type="email"
             placeholder="Correo"
           />
           <Password
             className={css({
-              width: '70%',
+              width: '80%',
+              md: {
+                width: '70%',
+              },
             })}
             inputId="password"
             feedback={false}
@@ -48,22 +54,12 @@ export const Login = () => {
           />
 
           <div className={forgotPasswordStyle}>
-            <Link
-              to=""
-              className={css({
-                color: 'blue.400',
-              })}
-            >
+            <Link to="" className={css({ color: 'blue.500' })}>
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
 
-          <Button
-            label="Iniciar sesión"
-            className={css({
-              width: '70%',
-            })}
-          />
+          <Button>Iniciar sesión</Button>
           <p>
             No tienes una cuenta?{' '}
             <Link to="/register" className={registerStyle}>
