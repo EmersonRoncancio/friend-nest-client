@@ -103,7 +103,13 @@ export const Login = () => {
             </Link>
           </div>
 
-          <Button>Iniciar sesión</Button>
+          <Button>
+            {loading ? (
+              <i className="pi pi-spin pi-cog" style={{ fontSize: '23px' }}></i>
+            ) : (
+              'Registrar'
+            )}
+          </Button>
           <p>
             No tienes una cuenta?{' '}
             <Link to="/register" className={registerStyle}>
