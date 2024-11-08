@@ -1,16 +1,16 @@
 type names = 'email' | 'password' | 'username' | 'fullName';
 
-export interface formRegisterType {
+export interface formsTypes {
   label: string;
   type: string;
   name: names;
   placeholder: string;
 }
 
-export const formRegister: formRegisterType[] = [
+export const formRegister: formsTypes[] = [
   {
     label: 'Correo',
-    type: 'text',
+    type: 'email',
     name: 'email',
     placeholder: 'your@email.com',
   },
@@ -34,6 +34,30 @@ export const formRegister: formRegisterType[] = [
   },
 ];
 
+type accesNames = 'email' | 'password';
+
+export interface formAccesTypes {
+  label: string;
+  type: string;
+  name: accesNames;
+  placeholder: string;
+}
+
+export const formLogin: formAccesTypes[] = [
+  {
+    label: 'Correo',
+    type: 'email',
+    name: 'email',
+    placeholder: 'Correo',
+  },
+  {
+    label: 'Contraseña',
+    type: 'password',
+    name: 'password',
+    placeholder: 'Contraseña',
+  },
+];
+
 type TypeUser = ['email', 'password', 'username', 'fullName', 'profile'];
 
 export const addUserType: TypeUser = [
@@ -43,3 +67,7 @@ export const addUserType: TypeUser = [
   'fullName',
   'profile',
 ];
+
+type TypeAccesUser = ['email', 'password'];
+
+export const accesUser: TypeAccesUser = ['email', 'password'];

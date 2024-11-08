@@ -1,5 +1,4 @@
 import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
 import { Link } from 'react-router-dom';
 import { css } from '../../../styled-system/css';
 import logo from '../../assets/logo2.png';
@@ -17,11 +16,61 @@ import {
   h1Style,
 } from '../styles/authStyle/globals.style';
 import { Button } from '../../components/styleComponents/button';
+import { accesUser, formLogin } from '../helpers/login.helper';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AccesUser, UserAccesFormData } from '../../zod/routesAuth';
+import { AccesUserType } from '../../types/user';
+import axios from 'axios';
+import { envs } from '../../envs';
+import { useRef, useState, Fragment } from 'react';
+import { Toast } from 'primereact/toast';
+import ErrorMessage from '../../components/componentsTsx/ErrorMessage';
 
 export const Login = () => {
+  const toast = useRef<Toast>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<UserAccesFormData>({ resolver: zodResolver(AccesUser) });
+
+  const onSubmit: SubmitHandler<AccesUserType> = (e) => {
+    setLoading(true);
+    axios
+      .post(`${envs.API}/auth/login`, e)
+      .then((res) => {
+        console.log(res);
+        toast.current?.show({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Bienvenido',
+          life: 3000,
+        });
+      })
+      .catch((error) => {
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al iniciar sesión',
+          life: 3000,
+        });
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
+
+    accesUser.map((value) => {
+      setValue(value, '');
+    });
+  };
+
   return (
     <main className={mainStyleLogin}>
-      <form className={card}>
+      <Toast ref={toast} />
+      <form onSubmit={handleSubmit(onSubmit)} className={card}>
         <div className={cardHeader}>
           <img src={logo} alt="friend-nest" className={logoFriendNest} />
           <h1 className={h1Style}>Bienvenido a Friend-Nest</h1>
@@ -30,29 +79,24 @@ export const Login = () => {
           </p>
         </div>
         <div className={cardMain}>
-          <InputText
-            className={css({
-              width: '80%',
-              md: {
-                width: '70%',
-              },
-            })}
-            type="email"
-            placeholder="Correo"
-          />
-          <Password
-            className={css({
-              width: '80%',
-              md: {
-                width: '70%',
-              },
-            })}
-            inputId="password"
-            feedback={false}
-            tabIndex={1}
-            placeholder="Contraseña"
-          />
-
+          {formLogin.map((input, index) => {
+            return (
+              <Fragment key={index}>
+                <InputText
+                  className={css({
+                    width: '80%',
+                    md: {
+                      width: '70%',
+                    },
+                  })}
+                  type={input.type}
+                  placeholder={input.placeholder}
+                  {...register(input.name)}
+                />
+                <ErrorMessage errors={errors} fieldName={input.name} />
+              </Fragment>
+            );
+          })}
           <div className={forgotPasswordStyle}>
             <Link to="" className={css({ color: 'blue.500' })}>
               ¿Olvidaste tu contraseña?

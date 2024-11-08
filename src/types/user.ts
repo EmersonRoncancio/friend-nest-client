@@ -12,3 +12,8 @@ export type userType = {
   fullName: string;
   profile?: File;
 };
+
+export type AccesUserType = {
+  email: string;
+  password: string;
+};

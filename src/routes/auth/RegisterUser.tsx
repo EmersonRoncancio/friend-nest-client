@@ -12,11 +12,7 @@ import {
   previewImageStyle,
 } from '../styles/authStyle/register.style';
 import { css } from '../../../styled-system/css';
-import {
-  addUserType,
-  formRegister,
-  formRegisterType,
-} from '../helpers/login.helper';
+import { addUserType, formRegister, formsTypes } from '../helpers/login.helper';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { userType } from '../../types/user';
 import { User, UserFormData } from '../../zod/routesAuth';
@@ -64,7 +60,7 @@ export const RegisterUser = () => {
     formData.append('profile', file.current!);
 
     axios
-      .post(`${envs.API}/auth/`, formData)
+      .post(`${envs.API}/auth/register`, formData)
       .then((res) => {
         toast.current?.show({
           severity: 'success',
@@ -115,7 +111,7 @@ export const RegisterUser = () => {
           </p>
         </div>
         <div className={cardContent}>
-          {formRegister.map((registerForm: formRegisterType, index) => {
+          {formRegister.map((registerForm: formsTypes, index) => {
             return (
               <div key={index} className={cardForm}>
                 <label htmlFor={registerForm.name}>{registerForm.label}</label>
