@@ -26,10 +26,13 @@ import { envs } from '../../envs';
 import { useRef, useState, Fragment } from 'react';
 import { Toast } from 'primereact/toast';
 import ErrorMessage from '../../components/componentsTsx/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export const Login = () => {
   const toast = useRef<Toast>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -43,13 +46,14 @@ export const Login = () => {
     axios
       .post(`${envs.API}/auth/login`, e)
       .then((res) => {
-        console.log(res);
         toast.current?.show({
           severity: 'success',
           summary: 'Success',
           detail: 'Bienvenido',
           life: 3000,
         });
+        Cookies.set('accesHome', res.data.token);
+        navigate('/home');
       })
       .catch((error) => {
         toast.current?.show({
