@@ -55,14 +55,13 @@ export const Login = () => {
         Cookies.set('accesHome', res.data.token);
         navigate('/home');
       })
-      .catch((error) => {
+      .catch(() => {
         toast.current?.show({
           severity: 'error',
           summary: 'Error',
           detail: 'Error al iniciar sesión',
           life: 3000,
         });
-        console.log(error);
       })
       .finally(() => setLoading(false));
 
@@ -111,7 +110,7 @@ export const Login = () => {
             {loading ? (
               <i className="pi pi-spin pi-cog" style={{ fontSize: '23px' }}></i>
             ) : (
-              'Registrar'
+              'Iniciar sesión'
             )}
           </Button>
           <p>

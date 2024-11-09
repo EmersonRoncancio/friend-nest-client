@@ -61,23 +61,21 @@ export const RegisterUser = () => {
 
     axios
       .post(`${envs.API}/auth/register`, formData)
-      .then((res) => {
+      .then(() => {
         toast.current?.show({
           severity: 'success',
           summary: 'Success',
           detail: 'Registro con exito',
           life: 3000,
         });
-        console.log(res);
       })
-      .catch((error) => {
+      .catch(() => {
         toast.current?.show({
           severity: 'error',
           summary: 'Error',
           detail: 'Error al registrarse',
           life: 3000,
         });
-        console.log(error);
       })
       .finally(() => {
         setLoading(false);
