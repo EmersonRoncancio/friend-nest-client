@@ -77,7 +77,10 @@ export const Login = () => {
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
-          <button className="btn btn-secondary w-[80%] flex justify-center items-center md:w-[70%]">
+          <button
+            className="btn btn-secondary w-[80%] flex justify-center items-center md:w-[70%]"
+            disabled={loading}
+          >
             {loading ? (
               <span className="loading loading-infinity loading-lg"></span>
             ) : (
