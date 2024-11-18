@@ -1,88 +1,140 @@
-@layer reset, base, tokens, recipes, utilities;
-
-.p-password-input{
-    width: 100%;
-}
-
-.p-fileupload-choose{
-    width: 100%;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .loader {
-    width: 80px;
-    height: 80px;
-    display: inline-block;
-    position: relative;
-    transform: rotate(45deg);
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  position: relative;
+  transform: rotate(45deg);
+}
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  top: -40px;
+  animation: animloader 4s ease infinite;
+}
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background: rgb(11, 11, 255);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  animation: animloader2 2s ease infinite;
+}
+
+@keyframes animloader {
+  0% {
+    box-shadow:
+      0 40px rgba(255, 255, 255, 0),
+      40px 40px rgba(255, 255, 255, 0),
+      40px 80px rgba(255, 255, 255, 0),
+      0px 80px rgba(255, 255, 255, 0);
   }
-  .loader::before {
-    content: '';  
-    box-sizing: border-box;
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    left: 0;
-    top: -40px;
-    animation: animloader 4s ease infinite;
+  12% {
+    box-shadow:
+      0 40px blue,
+      40px 40px rgba(255, 255, 255, 0),
+      40px 80px rgba(255, 255, 255, 0),
+      0px 80px rgba(255, 255, 255, 0);
   }
-  .loader::after {
-    content: '';  
-    box-sizing: border-box;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    background: rgb(11, 11, 255);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    animation: animloader2 2s ease infinite;
+  25% {
+    box-shadow:
+      0 40px blue,
+      40px 40px blue,
+      40px 80px rgba(255, 255, 255, 0),
+      0px 80px rgba(255, 255, 255, 0);
   }
-  
-  @keyframes animloader {
-    0% {
-      box-shadow: 0 40px rgba(255, 255, 255, 0), 40px 40px rgba(255, 255, 255, 0), 40px 80px rgba(255, 255, 255, 0), 0px 80px rgba(255, 255, 255, 0);
-    }
-    12% {
-      box-shadow: 0 40px blue, 40px 40px rgba(255, 255, 255, 0), 40px 80px rgba(255, 255, 255, 0), 0px 80px rgba(255, 255, 255, 0);
-    }
-    25% {
-      box-shadow: 0 40px blue, 40px 40px blue, 40px 80px rgba(255, 255, 255, 0), 0px 80px rgba(255, 255, 255, 0);
-    }
-    37% {
-      box-shadow: 0 40px blue, 40px 40px blue, 40px 80px blue, 0px 80px rgba(255, 255, 255, 0);
-    }
-    50% {
-      box-shadow: 0 40px blue, 40px 40px blue, 40px 80px blue, 0px 80px blue;
-    }
-    62% {
-      box-shadow: 0 40px rgba(255, 255, 255, 0), 40px 40px blue, 40px 80px blue, 0px 80px blue;
-    }
-    75% {
-      box-shadow: 0 40px rgba(255, 255, 255, 0), 40px 40px rgba(255, 255, 255, 0), 40px 80px blue, 0px 80px blue;
-    }
-    87% {
-      box-shadow: 0 40px rgba(255, 255, 255, 0), 40px 40px rgba(255, 255, 255, 0), 40px 80px rgba(255, 255, 255, 0), 0px 80px blue;
-    }
-    100% {
-      box-shadow: 0 40px rgba(255, 255, 255, 0), 40px 40px rgba(255, 255, 255, 0), 40px 80px rgba(255, 255, 255, 0), 0px 80px rgba(255, 255, 255, 0);
-    }
+  37% {
+    box-shadow:
+      0 40px blue,
+      40px 40px blue,
+      40px 80px blue,
+      0px 80px rgba(255, 255, 255, 0);
   }
-  
-  @keyframes animloader2 {
-    0% {
-      transform: translate(0, 0) rotateX(0) rotateY(0);
-    }
-    25% {
-      transform: translate(100%, 0) rotateX(0) rotateY(180deg);
-    }
-    50% {
-      transform: translate(100%, 100%) rotateX(-180deg) rotateY(180deg);
-    }
-    75% {
-      transform: translate(0, 100%) rotateX(-180deg) rotateY(360deg);
-    }
-    100% {
-      transform: translate(0, 0) rotateX(0) rotateY(360deg);
-    }
+  50% {
+    box-shadow:
+      0 40px blue,
+      40px 40px blue,
+      40px 80px blue,
+      0px 80px blue;
   }
-      
+  62% {
+    box-shadow:
+      0 40px rgba(255, 255, 255, 0),
+      40px 40px blue,
+      40px 80px blue,
+      0px 80px blue;
+  }
+  75% {
+    box-shadow:
+      0 40px rgba(255, 255, 255, 0),
+      40px 40px rgba(255, 255, 255, 0),
+      40px 80px blue,
+      0px 80px blue;
+  }
+  87% {
+    box-shadow:
+      0 40px rgba(255, 255, 255, 0),
+      40px 40px rgba(255, 255, 255, 0),
+      40px 80px rgba(255, 255, 255, 0),
+      0px 80px blue;
+  }
+  100% {
+    box-shadow:
+      0 40px rgba(255, 255, 255, 0),
+      40px 40px rgba(255, 255, 255, 0),
+      40px 80px rgba(255, 255, 255, 0),
+      0px 80px rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes animloader2 {
+  0% {
+    transform: translate(0, 0) rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: translate(100%, 0) rotateX(0) rotateY(180deg);
+  }
+  50% {
+    transform: translate(100%, 100%) rotateX(-180deg) rotateY(180deg);
+  }
+  75% {
+    transform: translate(0, 100%) rotateX(-180deg) rotateY(360deg);
+  }
+  100% {
+    transform: translate(0, 0) rotateX(0) rotateY(360deg);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* Tamaño del scroll en vertical */
+  height: 6px; /* Tamaño del scroll en horizontal */
+  padding-top: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cac9c9; /* Color del scroll */
+  border-radius: 10px; /* Borde redondeado */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8f8f8f; /* Color al pasar el mouse */
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff; /* Fondo del track */
+}
+
+.p-menubar {
+  background-color: #1a62aa;
+}

@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { envs } from '../../envs';
-import { css } from '../../../styled-system/css';
 
 export const ProtectedAuth = () => {
   const [loading, setLoading] = useState(false);
@@ -25,16 +24,16 @@ export const ProtectedAuth = () => {
     <>
       {loading ? (
         <div
-          className={css({
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            height: '100vh',
-            bgGradient: 'to-r',
-            gradientFrom: 'blue.400',
-            gradientTo: 'blue.100',
-          })}
+        // className={css({
+        //   display: 'flex',
+        //   justifyContent: 'center',
+        //   alignItems: 'center',
+        //   width: '100%',
+        //   height: '100vh',
+        //   bgGradient: 'to-r',
+        //   gradientFrom: 'blue.400',
+        //   gradientTo: 'blue.100',
+        // })}
         >
           <span className="loader"></span>
         </div>
