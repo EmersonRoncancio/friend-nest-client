@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.tu-clase::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.tu-clase::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.tu-clase::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.tu-clase::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .loader {
   width: 80px;
   height: 80px;
@@ -114,27 +132,4 @@
   100% {
     transform: translate(0, 0) rotateX(0) rotateY(360deg);
   }
-}
-
-::-webkit-scrollbar {
-  width: 8px; /* Tamaño del scroll en vertical */
-  height: 6px; /* Tamaño del scroll en horizontal */
-  padding-top: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cac9c9; /* Color del scroll */
-  border-radius: 10px; /* Borde redondeado */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #8f8f8f; /* Color al pasar el mouse */
-}
-
-::-webkit-scrollbar-track {
-  background: #ffffff; /* Fondo del track */
-}
-
-.p-menubar {
-  background-color: #1a62aa;
 }

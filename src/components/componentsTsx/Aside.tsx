@@ -1,17 +1,6 @@
-import { css } from '../../../styled-system/css';
-
 export const Aside = () => {
   return (
-    <aside
-      className={css({
-        width: '20%',
-        height: 'auto',
-        // backgroundColor: 'blue.800',
-        position: 'sticky',
-        display: 'flex',
-        top: '70px',
-      })}
-    >
+    <aside className="w-[20%] bg-blue-800 top-[70px] flex h-[90vh]">
       <p>Mani</p>
     </aside>
   );
