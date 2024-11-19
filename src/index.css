@@ -2,22 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-.tu-clase::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+
+/* Estilo scrollbar Twitch */
+.twitch-scrollbar .simplebar-scrollbar::before {
+  background-color: #1f9fe940;
+  width: 7px !important;
+  border-radius: 3px;
+  opacity: 1 !important;
 }
 
-.tu-clase::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.twitch-scrollbar .simplebar-scrollbar:hover::before {
+  background-color: #0e3d9480;
 }
 
-.tu-clase::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
+.twitch-scrollbar .simplebar-track.simplebar-vertical {
+  width: 7px;
+  background: transparent;
+  right: 0;
 }
 
-.tu-clase::-webkit-scrollbar-thumb:hover {
-  background: #555;
+.twitch-scrollbar .simplebar-track.simplebar-vertical .simplebar-scrollbar {
+  right: 0;
+  width: 7px;
 }
 
 .loader {
