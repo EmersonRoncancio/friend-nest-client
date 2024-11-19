@@ -10,10 +10,10 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<RegisterUser />} />
-      {/* <Route element={<ProtectedAuth />}>
+      <Route element={<ProtectedAuth />}>
         <Route path="/home/*" element={<Home />} />
         <Route path="/prueba" element={<Prueba />} />
-      </Route> */}
+      </Route>
     </Routes>
   );
 }

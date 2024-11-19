@@ -23,18 +23,7 @@ export const ProtectedAuth = () => {
   return (
     <>
       {loading ? (
-        <div
-        // className={css({
-        //   display: 'flex',
-        //   justifyContent: 'center',
-        //   alignItems: 'center',
-        //   width: '100%',
-        //   height: '100vh',
-        //   bgGradient: 'to-r',
-        //   gradientFrom: 'blue.400',
-        //   gradientTo: 'blue.100',
-        // })}
-        >
+        <div className="flex justify-center items-center w-full h-screen bg-gradient-to-r from-blue-400 to-blue-100">
           <span className="loader"></span>
         </div>
       ) : (
