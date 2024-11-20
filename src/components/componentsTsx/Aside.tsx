@@ -6,7 +6,7 @@ import { FiMessageCircle } from 'react-icons/fi';
 export const Aside = () => {
   return (
     <aside className="w-[20%] flex justify-center py-9">
-      <div className="w-full flex flex-col items-center">
+      <div className="w-full flex flex-col items-end">
         <div className="card shadow-xl w-[90%] p-4 flex flex-col gap-3">
           <div className="flex gap-6">
             <div className="avatar">
