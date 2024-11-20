@@ -5,12 +5,6 @@ import 'simplebar-react/dist/simplebar.min.css';
 import '../../index.css';
 
 export const Home = () => {
-  // display: 'flex',
-  // flexDirection: 'column',
-  // width: 'full',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  // gap: '10px',
   return (
     <>
       <Header />
@@ -20,8 +14,20 @@ export const Home = () => {
           style={{ maxHeight: '90vh' }}
           className="h-[90vh] overflow-x-auto w-[60%] py-5 twitch-scrollbar"
         >
-          <div className="flex flex-col w-full items-center justify-center gap-[10px]">
-            <div className="card bg-base-100 w-96 shadow-xl">
+          <div className="flex flex-col w-full items-center justify-center gap-12">
+            <div className="card bg-base-100 w-[450px] shadow-xl">
+              <div className="card-body">
+                <div className="flex justify-center items-center gap-4">
+                  <div className="avatar">
+                    <div className="w-10 rounded-full">
+                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    </div>
+                  </div>
+                  <button className="btn w-[90%]">¿Ques estas pensando?</button>
+                </div>
+              </div>
+            </div>
+            <div className="card bg-base-100 w-[450px] shadow-xl">
               <div className="card-body">
                 <h2 className="card-title">Shoes!</h2>
                 <p>If a dog chews shoes whose shoes does he choose?</p>
@@ -33,7 +39,7 @@ export const Home = () => {
                 />
               </figure>
             </div>
-            <div className="card bg-base-100 w-96 shadow-xl">
+            <div className="card bg-base-100 w-[450px] shadow-xl">
               <div className="card-body">
                 <h2 className="card-title">Shoes!</h2>
                 <p>If a dog chews shoes whose shoes does he choose?</p>
@@ -45,7 +51,7 @@ export const Home = () => {
                 />
               </figure>
             </div>
-            <div className="card bg-base-100 w-96 shadow-xl">
+            <div className="card bg-base-100 w-[450px] shadow-xl">
               <div className="card-body">
                 <h2 className="card-title">Shoes!</h2>
                 <p>If a dog chews shoes whose shoes does he choose?</p>
@@ -59,7 +65,7 @@ export const Home = () => {
             </div>
           </div>
         </SimpleBar>
-        <div className="w-[20%] h-[90vh] bg-slate-500"></div>
+        <div className="w-[20%]"></div>
       </main>
     </>
   );
