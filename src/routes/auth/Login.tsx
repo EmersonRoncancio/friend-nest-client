@@ -11,6 +11,7 @@ import { useState, Fragment } from 'react';
 import ErrorMessage from '../../components/componentsTsx/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,7 +32,18 @@ export const Login = () => {
         Cookies.set('accesHome', res.data.token);
         navigate('/home');
       })
-      .catch(() => {})
+      .catch(() => {
+        toast.error('Error al registrarse', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      })
       .finally(() => setLoading(false));
 
     accesUser.map((value) => {
@@ -41,6 +53,7 @@ export const Login = () => {
 
   return (
     <main className="bg-gradient-to-r from-blue-400 to-blue-100 w-full h-screen flex justify-center items-center">
+      <ToastContainer />
       <form
         className="bg-white w-[90%] py-[30px] rounded-md flex flex-col justify-center items-center shadow-md md:w-[80%] xl:w-5/12"
         onSubmit={handleSubmit(onSubmit)}

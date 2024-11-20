@@ -8,6 +8,8 @@ import { envs } from '../../envs';
 import ErrorMessage from '../../components/componentsTsx/ErrorMessage';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const RegisterUser = () => {
   const file = useRef<File | null>(null);
@@ -43,8 +45,30 @@ export const RegisterUser = () => {
 
     axios
       .post(`${envs.API}/auth/register`, formData)
-      .then(() => {})
-      .catch(() => {})
+      .then(() => {
+        toast.success('Exito al registrarse', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      })
+      .catch(() => {
+        toast.error('Error al registrarse', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -68,6 +92,7 @@ export const RegisterUser = () => {
 
   return (
     <main className="bg-gradient-to-r from-blue-400 to-blue-100 w-full h-[150vh] flex justify-center items-center">
+      <ToastContainer />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white w-[90%] py-[30px] rounded-md flex flex-col justify-center items-center shadow-md md:w-[80%] xl:w-5/12"
