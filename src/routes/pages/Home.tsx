@@ -9,9 +9,13 @@ import { envs } from '../../envs';
 import Cookies from 'js-cookie';
 import { UserRequest } from '../../types/user';
 import { userRequestAux } from '../helpers/login.helper';
+import { useForm } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const Home = () => {
   const [user, setUser] = useState<UserRequest>(userRequestAux);
+
+  const { register, setValue, handleSubmit } = useForm();
 
   useEffect(() => {
     const token = Cookies.get('accesHome');
@@ -24,6 +28,45 @@ export const Home = () => {
       .then((res) => setUser(res.data));
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
+    console.log(Cookies.get('accesHome'));
+    console.log(data);
+    const formData = new FormData();
+    formData.append('contentDescription', data.contentDescription);
+    axios
+      .post(`${envs.API}/publications/createPublication`, formData, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('accesHome')}`,
+        },
+      })
+      .then(() => {
+        toast.success('Post creado', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      })
+      .catch(() => {
+        toast.success('Error al crear post', {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      })
+      .finally(() => setValue('contentDescription', ''));
+  };
+
   return (
     <>
       <Header urlProfile={user.imageProfile} />
@@ -33,10 +76,23 @@ export const Home = () => {
           style={{ maxHeight: '90vh' }}
           className="h-[90vh] overflow-x-auto w-[60%] py-5 twitch-scrollbar"
         >
+          <ToastContainer />
           <dialog id="my_modal_2" className="modal">
             <div className="modal-box">
-              <h3 className="text-lg font-bold">Hello!</h3>
-              <p className="py-4">Press ESC key or click outside to close</p>
+              <div className="w-full flex flex-col items-center gap-8">
+                <h2 className="font-bold text-xl">Crear Post</h2>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="w-[80%] flex flex-col gap-3"
+                >
+                  <textarea
+                    className="textarea w-full border-0 border-white"
+                    placeholder="¿Que estas pensando?"
+                    {...register('contentDescription')}
+                  ></textarea>
+                  <button className="btn btn-secondary w-full">Post</button>
+                </form>
+              </div>
             </div>
             <form method="dialog" className="modal-backdrop">
               <button>close</button>
