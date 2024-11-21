@@ -17,3 +17,11 @@ export type AccesUserType = {
   email: string;
   password: string;
 };
+
+export interface UserRequest {
+  username: string;
+  email: string;
+  password: string;
+  fullName: string;
+  imageProfile: string;
+}

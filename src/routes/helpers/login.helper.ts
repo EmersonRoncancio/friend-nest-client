@@ -71,3 +71,11 @@ export const addUserType: TypeUser = [
 type TypeAccesUser = ['email', 'password'];
 
 export const accesUser: TypeAccesUser = ['email', 'password'];
+
+export const userRequestAux = {
+  email: '',
+  fullName: '',
+  password: '',
+  username: '',
+  imageProfile: '',
+};

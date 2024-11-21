@@ -4,14 +4,14 @@
 
 /* Estilo scrollbar Twitch */
 .twitch-scrollbar .simplebar-scrollbar::before {
-  background-color: #1f9fe91c;
+  background-color: #bbe2f81c;
   width: 7px !important;
   border-radius: 3px;
   opacity: 1 !important;
 }
 
 .twitch-scrollbar .simplebar-scrollbar:hover::before {
-  background-color: #0e3d943f;
+  background-color: #a1c0fa3f;
 }
 
 .twitch-scrollbar .simplebar-track.simplebar-vertical {

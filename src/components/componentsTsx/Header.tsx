@@ -1,4 +1,4 @@
-export const Header = () => {
+export const Header = ({ urlProfile }: { urlProfile: string }) => {
   return (
     <header className="sticky w-full top-0">
       <div className="navbar bg-blue-400">
@@ -61,8 +61,8 @@ export const Header = () => {
             </svg>
           </button>
           <div className="avatar">
-            <div className="w-10 rounded-full">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            <div className="w-10 h-10 rounded-full">
+              <img src={urlProfile} />
             </div>
           </div>
         </div>
