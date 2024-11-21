@@ -21,7 +21,6 @@ export type AccesUserType = {
 export interface UserRequest {
   username: string;
   email: string;
-  password: string;
   fullName: string;
   imageProfile: string;
 }
