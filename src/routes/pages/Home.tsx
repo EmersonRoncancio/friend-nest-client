@@ -11,7 +11,7 @@ import { UserRequest } from '../../types/user';
 import { userRequestAux } from '../helpers/login.helper';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
-import { IoIosImages } from 'react-icons/io';
+import { IoIosImages, IoMdClose } from 'react-icons/io';
 
 export const Home = () => {
   const [user, setUser] = useState<UserRequest>(userRequestAux);
@@ -114,7 +114,17 @@ export const Home = () => {
                     placeholder="¿Que estas pensando?"
                     {...register('contentDescription')}
                   ></textarea>
-                  <div className="grid grid-cols-5 gap-1">
+                  <div className="grid grid-cols-5 gap-1 relative py-4">
+                    <button
+                      type="button"
+                      className="w-6 h-6 rounded-full bg-slate-400 flex justify-center items-center absolute bottom-0-0 right-0"
+                      onClick={() => {
+                        setUrlImages([]);
+                        setFiles([]);
+                      }}
+                    >
+                      <IoMdClose />
+                    </button>
                     {urlImages.map((url, index) => {
                       return (
                         <img
