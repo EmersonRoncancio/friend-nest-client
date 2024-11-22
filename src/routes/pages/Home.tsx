@@ -87,6 +87,7 @@ export const Home = () => {
         setUrlImages([]);
         setFiles([]);
         setLoading(false);
+        (document.getElementById('my_modal_2') as HTMLDialogElement)!.close();
       });
   };
 
