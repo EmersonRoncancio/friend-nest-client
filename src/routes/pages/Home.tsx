@@ -170,7 +170,7 @@ export const Home = () => {
             </form>
           </dialog>
           <div className="flex flex-col w-full items-center justify-center gap-12">
-            <div className="card bg-base-100 w-[450px] shadow-xl">
+            <div className="card bg-base-100 w-[550px] shadow-xl">
               <div className="card-body">
                 <div className="flex justify-center items-center gap-4">
                   <div className="avatar">
@@ -196,7 +196,7 @@ export const Home = () => {
               return (
                 <div
                   key={index}
-                  className="card bg-base-200 w-[450px] shadow-xl"
+                  className="card bg-base-200 w-[550px] shadow-xl"
                 >
                   <div className="card-body">
                     <div className="avatar">
