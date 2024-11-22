@@ -11,9 +11,13 @@ import { UserRequest } from '../../types/user';
 import { userRequestAux } from '../helpers/login.helper';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
+import { IoIosImages } from 'react-icons/io';
 
 export const Home = () => {
   const [user, setUser] = useState<UserRequest>(userRequestAux);
+  const [files, setFiles] = useState<File[]>([]);
+  const [urlImages, setUrlImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { register, setValue, handleSubmit } = useForm();
 
@@ -28,12 +32,26 @@ export const Home = () => {
       .then((res) => setUser(res.data));
   }, []);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files);
+
+      setFiles((prevFiles) => [...prevFiles, ...filesArray]);
+
+      const urls = filesArray.map((file) => URL.createObjectURL(file));
+      setUrlImages((prevUrls) => [...prevUrls, ...urls]);
+    }
+  };
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
-    console.log(Cookies.get('accesHome'));
-    console.log(data);
     const formData = new FormData();
     formData.append('contentDescription', data.contentDescription);
+    files.forEach((file) => {
+      formData.append('files', file);
+    });
+    setLoading(true);
     axios
       .post(`${envs.API}/publications/createPublication`, formData, {
         headers: {
@@ -64,7 +82,12 @@ export const Home = () => {
           theme: 'light',
         });
       })
-      .finally(() => setValue('contentDescription', ''));
+      .finally(() => {
+        setValue('contentDescription', '');
+        setUrlImages([]);
+        setFiles([]);
+        setLoading(false);
+      });
   };
 
   return (
@@ -78,7 +101,7 @@ export const Home = () => {
         >
           <ToastContainer />
           <dialog id="my_modal_2" className="modal">
-            <div className="modal-box">
+            <SimpleBar className="modal-box text-simplebar">
               <div className="w-full flex flex-col items-center gap-8">
                 <h2 className="font-bold text-xl">Crear Post</h2>
                 <form
@@ -86,14 +109,46 @@ export const Home = () => {
                   className="w-[80%] flex flex-col gap-3"
                 >
                   <textarea
-                    className="textarea w-full border-0 border-white"
+                    className="textarea w-full border-0 border-white focus:outline-none"
                     placeholder="¿Que estas pensando?"
                     {...register('contentDescription')}
                   ></textarea>
-                  <button className="btn btn-secondary w-full">Post</button>
+                  <div className="grid grid-cols-5 gap-1">
+                    {urlImages.map((url, index) => {
+                      return (
+                        <img
+                          className="w-[50px] h-[50px] object-cover rounded-xl border-2 border-blue-300"
+                          key={index}
+                          src={url}
+                          alt="image"
+                        />
+                      );
+                    })}
+                  </div>
+                  <label className="btn btn-neutral w-full">
+                    <IoIosImages size={25} />
+                    <input
+                      hidden
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      {...register('images')}
+                      onChange={handleChange}
+                    />
+                  </label>
+                  <button
+                    className="btn btn-secondary w-full"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <span className="loading loading-infinity loading-lg"></span>
+                    ) : (
+                      'Post'
+                    )}
+                  </button>
                 </form>
               </div>
-            </div>
+            </SimpleBar>
             <form method="dialog" className="modal-backdrop">
               <button>close</button>
             </form>
