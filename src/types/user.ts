@@ -24,3 +24,8 @@ export interface UserRequest {
   fullName: string;
   imageProfile: string;
 }
+
+export interface PostsRquest {
+  contentDescription: string;
+  media: string[];
+}

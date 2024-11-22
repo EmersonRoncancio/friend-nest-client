@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { envs } from '../../envs';
 import Cookies from 'js-cookie';
-import { UserRequest } from '../../types/user';
-import { userRequestAux } from '../helpers/login.helper';
+import { PostsRquest, UserRequest } from '../../types/user';
+import { userRequestAux, postRequestAux } from '../helpers/login.helper';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import { IoIosImages, IoMdClose } from 'react-icons/io';
@@ -18,6 +18,7 @@ export const Home = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [urlImages, setUrlImages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [post, setPost] = useState<PostsRquest[]>(postRequestAux);
 
   const { register, setValue, handleSubmit } = useForm();
 
@@ -30,6 +31,10 @@ export const Home = () => {
         },
       })
       .then((res) => setUser(res.data));
+
+    axios
+      .get(`${envs.API}/publications/?page=1&limit=15`)
+      .then((res) => setPost(res.data));
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -186,43 +191,31 @@ export const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="card bg-base-100 w-[450px] shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-              </div>
-              <figure>
-                <img
-                  className="w-full h-full object-cover"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs9JJW0aIvDVxlS7Bd7NwT07tNHZ1QfCzfeQ&s"
-                  alt="Shoes"
-                />
-              </figure>
-            </div>
-            <div className="card bg-base-100 w-[450px] shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-              </div>
-              <figure>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                  alt="Shoes"
-                />
-              </figure>
-            </div>
-            <div className="card bg-base-100 w-[450px] shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title">Shoes!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-              </div>
-              <figure>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                  alt="Shoes"
-                />
-              </figure>
-            </div>
+
+            {post.map((post, index) => {
+              return (
+                <div
+                  key={index}
+                  className="card bg-base-200 w-[450px] shadow-xl"
+                >
+                  <div className="card-body">
+                    <div className="avatar">
+                      <div className="w-10 h-10 rounded-full">
+                        <img src={user.imageProfile} />
+                      </div>
+                    </div>
+                    <p>{post.contentDescription}</p>
+                  </div>
+                  <figure>
+                    <img
+                      className="w-full h-full object-cover"
+                      src={post.media[0]}
+                      alt={post.media.length > 1 ? 'image' : undefined}
+                    />
+                  </figure>
+                </div>
+              );
+            })}
           </div>
         </SimpleBar>
         <div className="w-[20%]"></div>

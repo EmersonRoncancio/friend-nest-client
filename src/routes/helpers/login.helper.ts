@@ -79,3 +79,10 @@ export const userRequestAux = {
   username: '',
   imageProfile: '',
 };
+
+export const postRequestAux = [
+  {
+    contentDescription: '',
+    media: [],
+  },
+];
