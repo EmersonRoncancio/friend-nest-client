@@ -1,4 +1,6 @@
 import { PostRequest } from '../../types/user';
+import { AiOutlineLike } from 'react-icons/ai';
+import { FaRegComment } from 'react-icons/fa6';
 
 export const CardPost = ({ post }: { post: PostRequest }) => {
   return (
@@ -23,11 +25,13 @@ export const CardPost = ({ post }: { post: PostRequest }) => {
       </figure>
       <hr className="my-3" />
       <div className="flex mb-3 h-[20%]">
-        <button className="w-[50%] btn bg-white border-0 outline-none rounded">
-          like
+        <button className="w-[50%] btn bg-white border-0 outline-none rounded shadow-none">
+          <AiOutlineLike size={25} />
+          <span>Like</span>
         </button>
-        <button className="w-[50%] btn bg-white border-0 outline-none rounded">
-          comentario
+        <button className="w-[50%] btn bg-white border-0 outline-none rounded shadow-none">
+          <FaRegComment size={20} />
+          <span>comentar</span>
         </button>
       </div>
     </div>
