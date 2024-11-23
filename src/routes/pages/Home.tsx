@@ -12,6 +12,7 @@ import { userRequestAux, postRequestAux } from '../helpers/login.helper';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import { IoIosImages, IoMdClose } from 'react-icons/io';
+import { CardPost } from '../../components/componentsTsx/CardPost';
 
 export const Home = () => {
   const [user, setUser] = useState<UserRequest>(userRequestAux);
@@ -217,26 +218,7 @@ export const Home = () => {
 
             {post.map((post, index) => {
               return (
-                <div
-                  key={index}
-                  className="card bg-white w-[95%] border-2 rounded-lg"
-                >
-                  <div className="card-body">
-                    <div className="avatar">
-                      <div className="w-10 h-10 rounded-full">
-                        <img src={user.imageProfile} />
-                      </div>
-                    </div>
-                    <p>{post.contentDescription}</p>
-                  </div>
-                  <figure>
-                    <img
-                      className="w-full h-full object-cover"
-                      src={post.media[0]}
-                      alt={post.media.length > 1 ? 'image' : undefined}
-                    />
-                  </figure>
-                </div>
+                <CardPost key={index} post={post} user={user.imageProfile} />
               );
             })}
           </div>
