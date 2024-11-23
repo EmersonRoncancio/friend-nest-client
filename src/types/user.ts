@@ -25,7 +25,18 @@ export interface UserRequest {
   imageProfile: string;
 }
 
-export interface PostsRquest {
+interface User {
+  id: string;
+  fullName: string;
+  username: string;
+  email: string;
+  imageProfile: string;
+  friends: string[];
+  author: string;
+}
+
+export interface PostRequest {
   contentDescription: string;
   media: string[];
+  author: User;
 }

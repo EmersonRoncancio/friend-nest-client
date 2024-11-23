@@ -7,24 +7,31 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { envs } from '../../envs';
 import Cookies from 'js-cookie';
-import { PostsRquest, UserRequest } from '../../types/user';
-import { userRequestAux, postRequestAux } from '../helpers/login.helper';
+import { UserRequest, PostRequest } from '../../types/user';
+import {
+  userRequestAux,
+  postRequestAux,
+  skeleton,
+} from '../helpers/login.helper';
 import { useForm } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import { IoIosImages, IoMdClose } from 'react-icons/io';
 import { CardPost } from '../../components/componentsTsx/CardPost';
+import { Skeleton } from '../../components/componentsTsx/Skeleton';
 
 export const Home = () => {
   const [user, setUser] = useState<UserRequest>(userRequestAux);
   const [files, setFiles] = useState<File[]>([]);
   const [urlImages, setUrlImages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [post, setPost] = useState<PostsRquest[]>(postRequestAux);
+  const [post, setPost] = useState<PostRequest[]>(postRequestAux);
+  const [loadingPosts, setLoadingPosts] = useState(false);
 
   const { register, setValue, handleSubmit } = useForm();
 
   useEffect(() => {
     const token = Cookies.get('accesHome');
+    setLoadingPosts(true);
     axios
       .get(`${envs.API}/auth/`, {
         headers: {
@@ -39,7 +46,12 @@ export const Home = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setPost(res.data));
+      .then((res) => {
+        console.log(res.data);
+        setPost(res.data);
+      })
+      .catch(() => console.log('error'))
+      .finally(() => setLoadingPosts(false));
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +117,7 @@ export const Home = () => {
     <div className="w-full flex flex-col items-center fixed bg-[#f3f4f6]">
       <Header urlProfile={user.imageProfile} />
       <main className="min-w-[900px] xl:min-w-[1300px] flex">
-        <Aside user={user!} />
+        <Aside user={user!} loading={loadingPosts} />
         <SimpleBar
           style={{ maxHeight: '90vh' }}
           className="overflow-x-auto w-[40%] py-5 twitch-scrollbar"
@@ -180,45 +192,55 @@ export const Home = () => {
             </form>
           </dialog>
           <div className="flex flex-col w-full items-center justify-center gap-4">
-            <div className="card bg-base-100 w-[95%] rounded-lg border-2">
-              <div className="card-body">
-                <div className="flex flex-col justify-center items-center gap-4">
-                  <div className="flex justify-center items-center gap-4 w-full">
-                    <div className="avatar">
-                      <div className="w-10 rounded-full">
-                        <img src={user?.imageProfile} />
+            {loadingPosts ? (
+              <Skeleton />
+            ) : (
+              <div className="card bg-base-100 w-[95%] rounded-lg border-2">
+                <div className="card-body">
+                  <div className="flex flex-col justify-center items-center gap-4">
+                    <div className="flex justify-center items-center gap-4 w-full">
+                      <div className="avatar">
+                        <div className="w-10 rounded-full">
+                          <img src={user?.imageProfile} />
+                        </div>
                       </div>
+                      <button
+                        className="input input-bordered w-[90%] flex justify-start items-center focus:outline-none hover:bg-slate-100"
+                        onClick={() =>
+                          (document.getElementById(
+                            'my_modal_2'
+                          ) as HTMLDialogElement)!.showModal()
+                        }
+                      >
+                        <span className="text-gray-400">
+                          ¿Que estas pensando?
+                        </span>
+                      </button>
                     </div>
                     <button
-                      className="input input-bordered w-[90%] flex justify-start items-center focus:outline-none hover:bg-slate-100"
+                      className="btn w-full"
                       onClick={() =>
                         (document.getElementById(
                           'my_modal_2'
                         ) as HTMLDialogElement)!.showModal()
                       }
                     >
-                      <span className="text-gray-400">
-                        ¿Que estas pensando?
-                      </span>
+                      <IoIosImages size={25} />
                     </button>
                   </div>
-                  <button
-                    className="btn w-full"
-                    onClick={() =>
-                      (document.getElementById(
-                        'my_modal_2'
-                      ) as HTMLDialogElement)!.showModal()
-                    }
-                  >
-                    <IoIosImages size={25} />
-                  </button>
                 </div>
               </div>
-            </div>
+            )}
 
             {post.map((post, index) => {
               return (
-                <CardPost key={index} post={post} user={user.imageProfile} />
+                <>
+                  {loadingPosts ? (
+                    skeleton.map(() => <Skeleton />)
+                  ) : (
+                    <CardPost key={index} post={post} />
+                  )}
+                </>
               );
             })}
           </div>
