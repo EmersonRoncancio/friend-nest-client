@@ -6,9 +6,9 @@ import { UserRequest } from '../../types/user';
 
 export const Aside = ({ user }: { user: UserRequest }) => {
   return (
-    <aside className="w-[20%] flex justify-center py-9">
+    <aside className="w-[30%] flex justify-center py-5">
       <div className="w-full flex flex-col items-end">
-        <div className="card shadow-xl w-[90%] p-4 flex flex-col gap-3">
+        <div className="card w-[90%] p-4 flex flex-col gap-3 bg-white border-2 rounded-lg">
           <div className="flex gap-6">
             <div className="avatar">
               <div className="w-10 h-10 rounded-full">

@@ -33,7 +33,11 @@ export const Home = () => {
       .then((res) => setUser(res.data));
 
     axios
-      .get(`${envs.API}/publications/?page=1&limit=15`)
+      .get(`${envs.API}/publications/?page=1&limit=15`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => setPost(res.data));
   }, []);
 
@@ -97,13 +101,13 @@ export const Home = () => {
   };
 
   return (
-    <>
+    <div className="w-full flex flex-col items-center fixed bg-[#f3f4f6]">
       <Header urlProfile={user.imageProfile} />
-      <main className="w-full flex">
+      <main className="min-w-[900px] xl:min-w-[1300px] flex">
         <Aside user={user!} />
         <SimpleBar
           style={{ maxHeight: '90vh' }}
-          className="h-[90vh] overflow-x-auto w-[60%] py-5 twitch-scrollbar"
+          className="overflow-x-auto w-[40%] py-5 twitch-scrollbar"
         >
           <ToastContainer />
           <dialog id="my_modal_2" className="modal">
@@ -119,17 +123,22 @@ export const Home = () => {
                     placeholder="¿Que estas pensando?"
                     {...register('contentDescription')}
                   ></textarea>
-                  <div className="grid grid-cols-5 gap-1 relative py-4">
-                    <button
-                      type="button"
-                      className="w-6 h-6 rounded-full bg-slate-400 flex justify-center items-center absolute bottom-0-0 right-0"
-                      onClick={() => {
-                        setUrlImages([]);
-                        setFiles([]);
-                      }}
-                    >
-                      <IoMdClose />
-                    </button>
+                  <div
+                    className={`grid grid-cols-5 gap-1 relative py-4 rounded-lg px-2 ${urlImages.length > 0 ? 'border' : ''}`}
+                  >
+                    {urlImages.length > 0 ? (
+                      <button
+                        type="button"
+                        className="w-6 h-6 rounded-full bg-slate-400 flex justify-center items-center absolute bottom-0-0 right-0"
+                        onClick={() => {
+                          setUrlImages([]);
+                          setFiles([]);
+                        }}
+                      >
+                        <IoMdClose />
+                      </button>
+                    ) : null}
+
                     {urlImages.map((url, index) => {
                       return (
                         <img
@@ -169,24 +178,38 @@ export const Home = () => {
               <button>close</button>
             </form>
           </dialog>
-          <div className="flex flex-col w-full items-center justify-center gap-12">
-            <div className="card bg-base-100 w-[550px] shadow-xl">
+          <div className="flex flex-col w-full items-center justify-center gap-4">
+            <div className="card bg-base-100 w-[95%] rounded-lg border-2">
               <div className="card-body">
-                <div className="flex justify-center items-center gap-4">
-                  <div className="avatar">
-                    <div className="w-10 rounded-full">
-                      <img src={user?.imageProfile} />
+                <div className="flex flex-col justify-center items-center gap-4">
+                  <div className="flex justify-center items-center gap-4 w-full">
+                    <div className="avatar">
+                      <div className="w-10 rounded-full">
+                        <img src={user?.imageProfile} />
+                      </div>
                     </div>
+                    <button
+                      className="input input-bordered w-[90%] flex justify-start items-center focus:outline-none hover:bg-slate-100"
+                      onClick={() =>
+                        (document.getElementById(
+                          'my_modal_2'
+                        ) as HTMLDialogElement)!.showModal()
+                      }
+                    >
+                      <span className="text-gray-400">
+                        ¿Que estas pensando?
+                      </span>
+                    </button>
                   </div>
                   <button
-                    className="btn w-[90%]"
+                    className="btn w-full"
                     onClick={() =>
                       (document.getElementById(
                         'my_modal_2'
                       ) as HTMLDialogElement)!.showModal()
                     }
                   >
-                    ¿Que estas pensando?
+                    <IoIosImages size={25} />
                   </button>
                 </div>
               </div>
@@ -196,7 +219,7 @@ export const Home = () => {
               return (
                 <div
                   key={index}
-                  className="card bg-base-200 w-[550px] shadow-xl"
+                  className="card bg-white w-[95%] border-2 rounded-lg"
                 >
                   <div className="card-body">
                     <div className="avatar">
@@ -218,8 +241,8 @@ export const Home = () => {
             })}
           </div>
         </SimpleBar>
-        <div className="w-[20%]"></div>
+        <div className="w-[30%]"></div>
       </main>
-    </>
+    </div>
   );
 };
